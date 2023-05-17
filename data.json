@@ -1,0 +1,20 @@
+
+[{
+    "pic": "jacket.jpg",
+    "name": "Mohan",
+    "desc": "Recycle Boucle Knit Cardigan Pink",
+    "price": "$120",
+    "id": 1,
+    "size": ["S","M"]
+
+},
+{
+    "pic": "shirt.jpg",
+    "name": "shirt",
+    "desc": "casual shirt",
+    "price": "$90",
+    "id": 2,
+    "size": ["S","M","L"]
+    
+}
+]
