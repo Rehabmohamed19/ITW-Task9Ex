@@ -5,7 +5,8 @@
     "desc": "Recycle Boucle Knit Cardigan Pink",
     "price": "$120",
     "id": 1,
-    "size": ["S","M"]
+    "sizes": ["S","M"],
+    "colors":["black","orange","grey"]
 
 },
 {
@@ -14,7 +15,8 @@
     "desc": "casual shirt",
     "price": "$90",
     "id": 2,
-    "size": ["S","M","L"]
+    "sizes": ["S","M","L"],
+    "colors":["black","orange"]
     
 }
 ]
