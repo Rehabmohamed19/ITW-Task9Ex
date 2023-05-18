@@ -1,3 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Fahkwang&display=swap");
+* {
+  font-family: "Fahkwang", sans-serif;
+}
+
 .colorAndSize-wrapper .black {
   background-color: black;
   width: 30px;
@@ -23,6 +28,13 @@
   width: 30px;
   height: 30px;
   border-radius: 50%;
+}
+.colorAndSize-wrapper .selected.color-selector {
+  border: 3px solid grey;
+}
+.colorAndSize-wrapper .selected.size-selector {
+  background-color: black;
+  color: white;
 }
 .colorAndSize-wrapper .addToBasket {
   background-color: black;
@@ -51,5 +63,62 @@
   height: 24px;
 }
 .colorAndSize-wrapper .hidden-items {
+  display: none;
+}
+
+.hidden-cart {
+  display: none;
+  height: 300px;
+}
+
+.orange-text {
+  color: #DD8560;
+}
+
+.black {
+  background-color: black;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.orange {
+  background-color: #DD8560;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.grey {
+  background-color: #E1E0DB;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.small, .medium, .large {
+  color: rgb(0, 0, 0);
+  border: 1px solid black;
+  background-color: rgb(246, 244, 244);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.selected.color-selector {
+  border: 3px solid grey;
+}
+
+.selected.size-selector {
+  background-color: black;
+  color: white;
+}
+
+.cart-minus, .cart-plus {
+  width: 1px;
+  font-size: 10px;
+}
+
+.close {
   display: none;
 }/*# sourceMappingURL=styles.css.map */

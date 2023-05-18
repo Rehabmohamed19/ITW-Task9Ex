@@ -1,8 +1,6 @@
 
-
-
- 
-  
+let productDetails;
+let total = 0;
 
 function loadContent() {
 
@@ -10,52 +8,121 @@ function loadContent() {
     const params = new URLSearchParams(url.split('?')[1]);
     const currentPage = params.get("page");
     if (currentPage == "cart") {
-
-        const cartContainer = document.createElement("div");
-        cartContainer.innerHTML =
-        `
-        <div>cart content</div>
+        $.getJSON("https://raw.githubusercontent.com/Rehabmohamed19/ITW-Task9/master/data.json", function (result) {
+            productDetails = result[0];
+            const cartContainer = document.createElement("div");
+            cartContainer.innerHTML =
+                `
+        <h3>CART</h3>
+        <div class="card shown cart" style="border:none;">
+            <div class="row d-flex">
+              <div class="col-4">
+                <img class="img-fluid" src="${productDetails.pic}" alt="">
+              </div>
+              <div class="col-8">
+                <div class="card-block">
+                <h5 class="pro-title">${productDetails.name}</h5>
+                <p class="pro-description">${productDetails.desc}</p>
+                <div class="row d-flex" style="width:45%;" >
+                          
+                              <i class="fa-solid fa-minus col-4 cart-minus mt-1" onclick="removeFromBasket(this)" style="color: black; "></i>
+                              <div class="counter col-4" id="counter">0</div>
+                              <i class="fa-solid fa-plus col-4 cart-minus mt-1" onclick="addToBasket(this)" style="color: black; "></i>
+                          
+                  </div>
+                <div class="pro-price orange-text">${productDetails.price} </div>
+                
+                </div>
+              </div>
+       
+            </div>
+            <div class="container-fluid mt-3">
+                <div class="row">
+                          <div class="col-6">
+                              <div class="pro-colors d-flex justify-content-between">
+                                  <h6 class="mt-1">Color</h6>
+                                  <div class="black color-selector selected" data-title="black" onclick="colorSelector(this)"></div>
+                                  <div class="orange color-selector" onclick="colorSelector(this)" data-title="orange"></div>
+                                  <div class="grey color-selector" onclick="colorSelector(this)" data-title="grey"></div>
+                              </div>
+                          </div>
+                          
+                          <div class="col-6">
+                              <div class="pro-sizes d-flex justify-content-between">
+                                  <h6 class="mt-1">Size</h6>
+                                  <div class="small text-center size-selector selected" data-title="small" onclick="sizeSelector(this)">S</div>
+                                  <div class="medium text-center size-selector" data-title="medium" onclick="sizeSelector(this)">M</div>
+                                  <div class="large text-center size-selector" data-title="large" onclick="sizeSelector(this)">L</div>
+                              </div>
+                          </div>
+                  </div>
+                  </div>
+          </div>
+          <div class="white-space" style="height: 190px;">
+          <div class="hidden-cart mt-5">
+            <p class="d-flex justify-content-center align-items-center">
+                You have no items in your Shopping Bag.
+            </p>
+        </div>
+          </div>
+          <hr class="mx-auto" style="background-color: black; height: 2px; width: 95%;">
+          <div class="row px-1">
+        <h4 class="col-6 d-flex justify-content-start">SUB TOTAL</h4>
+        <h4 class="sub-total col-6 d-flex justify-content-end orange-text">0</h4>
+            <p class="shipping my-3">*shipping charges, taxes and discount codes are calculated at the time of accounting. 
+            </p>
+        </div>
+        <div class="row mt-2 d-flex justify-content-center py-2" style="background-color: black;">
+    
+            <img src="./images/shopping bag2.png" class="col-6 d-flex justify-content-end" alt="" style="width: 60px; height: 30px;">
+            <h4 class="buy-now col-6  d-flex justify-content-start pt-2" style="color: aliceblue; font-size: 16px;">BUY NOW</h4>
+        </div>
         
+
         `;
-        document.querySelector(".main-content").append(cartContainer);
+            document.querySelector(".main-content").append(cartContainer);
+            // if(total==0){
+            //     $(".shown-cart").css("display","none");
+            //     $(".hidden-cart").css("display","block");
+            // }
+        });
 
     } else {
-       
-        $.getJSON("https://raw.githubusercontent.com/Rehabmohamed19/ITW-Task9/master/data.json", function(result){
-            selectedItem=result[0];
-            localStorage.setItem("selectedItem", JSON.stringify(selectedItem));
+
+        $.getJSON("https://raw.githubusercontent.com/Rehabmohamed19/ITW-Task9/master/data.json", function (result) {
+            productDetails = result[0];
             const detailsContainer = document.createElement("div");
             detailsContainer.innerHTML = `
             <div>
-            <img class="img-fluid" src="${selectedItem.pic}"/>
-            <h3 class="pro-title mt-4">${selectedItem.name}</h3>
-            <p class="pro-description">${selectedItem.desc}</p>
-            <div class="pro-price">${selectedItem.price} </div>
+            <img class="img-fluid" src="${productDetails.pic}"/>
+            <h3 class="pro-title mt-2">${productDetails.name}</h3>
+            <p class="pro-description">${productDetails.desc}</p>
+            <div class="pro-price orange-text">${productDetails.price} </div>
             <div class="container-fluid colorAndSize-wrapper p-0 my-3">
             <div class="row">
                     <div class="col-6">
                         <div class="pro-colors d-flex justify-content-between">
                             <h6>Color</h6>
-                            <div class="black b-selector" onclick="blackSelector(this)"></div>
-                            <div class="orange o-selector" onclick="orangeSelector(this)"></div>
-                            <div class="grey g-selector" onclick="greySelector(this)"></div>
+                            <div class="black color-selector selected" data-title="black" onclick="colorSelector(this)"></div>
+                            <div class="orange color-selector" onclick="colorSelector(this)" data-title="orange"></div>
+                            <div class="grey color-selector" onclick="colorSelector(this)" data-title="grey"></div>
                         </div>
                     </div>
                     
                     <div class="col-6">
                         <div class="pro-sizes d-flex justify-content-between">
                             <h6>Size</h6>
-                            <div class="small text-center sm-selector" onclick="smallSelector(this)">S</div>
-                            <div class="medium text-center me-selector" onclick="mediumSelector(this)">M</div>
-                            <div class="large text-center la-selector" onclick="largeSelector(this)">L</div>
+                            <div class="small text-center size-selector selected" data-title="small" onclick="sizeSelector(this)">S</div>
+                            <div class="medium text-center size-selector" data-title="medium" onclick="sizeSelector(this)">M</div>
+                            <div class="large text-center size-selector" data-title="large" onclick="sizeSelector(this)">L</div>
                         </div>
                     </div>
             </div>
             <div class="shown-items">
             <div class="row d-flex mt-4" style="background-color: black;">
     
-                    <i class="fa-solid fa-plus col-2 plus" style="color: white;" onclick="addToBasket(this)"></i>
-                    <button type = "button" onclick="addToBasket(this)" class="addToBasket col-8 d-flex justify-content-start"> ADD TO BASKET </button>
+                    <i class="fa-solid fa-plus col-2 plus calc" style="color: white;" onclick="addToBasket(this)"></i>
+                    <button type = "button calc" onclick="addToBasket(this)" class="addToBasket col-8 d-flex justify-content-start"> ADD TO BASKET </button>
                     <i class="fa-regular fa-heart col-2 heart" style="color: #ffffff;"></i>
             </div>
             </div>
@@ -63,8 +130,8 @@ function loadContent() {
             <div class="row d-flex justify-content-center" style="background-color: black;">
                     
                         <i class="fa-solid fa-minus col-5 d-flex justify-content-end counter-minus" onclick="removeFromBasket(this)" style="color: white; "></i>
-                        <div class="counter col-2 d-flex justify-content-center" id="counter">0</div>
-                        <i class="fa-solid fa-plus col-5 d-flex justify-content-start counter-plus" onclick="addToBasket(this)" style="color: white; "></i>
+                        <div class="cart-counter counter col-2 d-flex justify-content-center" id="counter">0</div>
+                        <i class="fa-solid fa-plus col-5 d-flex justify-content-start counter-plus calc" onclick="addToBasket(this)" style="color: white; "></i>
                     
             </div>
             </div>
@@ -74,17 +141,12 @@ function loadContent() {
             `;
             document.querySelector(".main-content").append(detailsContainer);
         });
-      
+
     }
 };
 
-// function addToBasket() {
-//     const counterElem = document.querySelector('#counter'),
-//           count = +counterElem.innerHTML;
-//     counterElem.innerHTML = count+1;
-//  }
 
-
+let count;
 
 $(function () {
 
@@ -93,74 +155,112 @@ $(function () {
 
     addToBasket = function () {
         const counterElem = document.querySelector('#counter'),
-        count = +counterElem.innerHTML;
-        counterElem.innerHTML = count+1;
+            count = +counterElem.innerHTML;
+        counterElem.innerHTML = count + 1;
 
-        if(count<=1){
-            $(".shown-items").css("display","none")
-            $(".hidden-items").css("display","block")
+        if (count <= 1) {
+            $(".shown-items").css("display", "none")
+            $(".hidden-items").css("display", "block")
         }
+
+        let selectedItem = Object.assign({}, productDetails);
+        delete selectedItem.colors;
+        delete selectedItem.sizes;
+        selectedItem.selectedColor = $(".color-selector.selected").data("title");
+        selectedItem.selectedSize = $(".size-selector.selected").data("title");
+
+        var price = productDetails.price
+        var noItems = count;
+        console.log(count);
+        console.log(typeof (count));
+        var total = price * noItems
+        console.log(total);
+
+        $(".sub-total").innerHTML = total;
+        if (total == 0) {
+            $(".shown-cart").css("display", "none");
+            $(".hidden-cart").css("display", "block");
+        }
+
+
+        var price = productDetails.price
+        var noItems = count;
+        console.log(count);
+        console.log(typeof (count));
+        var total = price * noItems
+        console.log(total);
+
+        $(".sub-total").innerHTML = total;
+        if (total == 0) {
+            $(".shown-cart").css("display", "none");
+            $(".hidden-cart").css("display", "block");
+        }
+
         localStorage.setItem("selectedItem", JSON.stringify(selectedItem));
 
- };
 
- removeFromBasket=function () {
-    const counterElem = document.querySelector('#counter'),
-    count = +counterElem.innerHTML;
-    counterElem.innerHTML = count-1;
+    };
 
-};
+    removeFromBasket = function () {
+        const counterElem = document.querySelector('#counter'),
+            count = +counterElem.innerHTML;
+        counterElem.innerHTML = count - 1;
 
-blackSelector=function(){
-    $(".b-selector").css("border","3px solid grey")
-    $(".o-selector").css("border","none")
-    $(".g-selector").css("border","none")
-
-}
-orangeSelector=function(){
-    $(".o-selector").css("border","3px solid grey")
-    $(".b-selector").css("border","none")
-    $(".g-selector").css("border","none")
-}
-greySelector=function(){
-    $(".g-selector").css("border","3px solid grey")
-    $(".b-selector").css("border","none")
-    $(".o-selector").css("border","none")
-}
-
-smallSelector=function(){
-    $(".sm-selector").css("background-color","black")
-    $(".sm-selector").css("color","white")
-    $(".me-selector").css("background-color","white")
-    $(".la-selector").css("background-color","white")
-
-}
-mediumSelector=function(){
-    $(".me-selector").css("background-color","black")
-    $(".me-selector").css("color","white")
-    $(".sm-selector").css("background-color","white")
-    $(".la-selector").css("background-color","white")
-
-}
-largeSelector=function(){
-    $(".la-selector").css("background-color","black")
-    $(".la-selector").css("color","white")
-    $(".me-selector").css("background-color","white")
-    $(".sm-selector").css("background-color","white")
-}
+    };
 
 
+    colorSelector = function (elm) {
+        $(".color-selector").removeClass("selected");
+        $(elm).addClass("selected");
+
+    };
+
+    sizeSelector = function (elm) {
+        $(".size-selector").removeClass("selected");
+        $(elm).addClass("selected");
+
+    };
+    $(".cart-btn").click(function () {
+        console.log("Cart");
+        if (total == 0) {
+
+            $(".shown-cart").css("display", "none");
+            $(".hidden-cart").css("display", "block");
+        }
+    })
 
 
-    
+    // calc=function(){
+    // //   var priceHolder = document.querySelector(".sub-total").innerHTML;
+    //     console.log("in");
+    //   var price = productDetails.price
+    //   var noItems = count;
+    //   console.log(count);
+    //   console.log(typeof(count));
+    //   var total = price * noItems
+    //   console.log(total);
+
+    //   $(".sub-total").innerHTML= total;
+    //   if(total==0){
+    //     $(".shown-cart").css("display","none");
+    //     $(".hidden-cart").css("display","block");
+    // }
+    // }
+
+    // $(".calc").on("click",function(){
+    //     calc();
+    //     console.log("Clicked");
+    // })
+
 
     $("header .search-cart").click(function () {
         document.location.search = "page=cart"
     });
     $("header .menu").click(function () {
         window.location.href = window.location.href.split('?')[0];
+
     });
 
-    
+
 
 });
